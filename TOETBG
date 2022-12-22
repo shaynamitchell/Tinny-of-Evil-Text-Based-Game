@@ -1,0 +1,202 @@
+# Shayna Mitchell
+# April 2022
+# Tinny of Evil Text Based Game
+
+
+# Tinny of Evil Game start
+
+# Give text a certain speed profile
+import sys
+import time
+
+a = 5
+b = 4
+c = 3
+d = 2
+e = 1
+f = 0.5
+g = 0.2
+h = 0.08
+i = 0.05
+
+
+def intro():
+    print("                        *                       ")
+    print("                       * *                      ")
+    print("                      *   *                     ")
+    print("                     *     *                    ")
+    print("                    *       *                   ")
+    print("                   *         *                  ")
+    print("                  *           *                 ")
+    print("                 *             *                ")
+    print("                *               *               ")
+    print("               *                 *              ")
+    print("              *                   *             ")
+    print("             *                     *            ")
+    print("            *                       *           ")
+    print("           * * * * * * * * * * * * * *          ")
+    print()
+    time.sleep(f)
+    s = '         *        Tinny of Evil         *'
+    for character in s:
+        sys.stdout.write(character)
+        sys.stdout.flush()
+        time.sleep(h)
+    print()
+    time.sleep(f)
+
+
+# Display Game instructions and introduction
+def show_instructions():
+    print()
+    print("    Welcome to the Tinny of Evil Text Based Game!    ")
+    print()
+    time.sleep(c)
+    print("You are inside of Tinny Pyramid and need to defeat the evil spirit in the last room!!!")
+    time.sleep(d)
+    print("You will be typing in your text instructions as you make your way through the pyramid.")
+    time.sleep(d)
+    print("Add all 6 items to your green satchel to ultimately defeat Thermopalus.")
+    time.sleep(d)
+    print("If you arrive to the Evil Room before adding all 6 items, your soul will be sucked out of your body.")
+    time.sleep(g)
+    print()
+    s1 = 'We do NOT want that to happen!!!'
+    for character in s1:
+        sys.stdout.write(character)
+        sys.stdout.flush()
+        time.sleep(h)
+    print()
+    print()
+    time.sleep(c)
+    print("So if you get to the Infinite Room - maybe check how many items you have first...")
+    print()
+    time.sleep(d)
+    print("...I don't mind giving a little hint... :):)")
+    print()
+    time.sleep(e)
+    print("Alright, to move through the pyramid type: North, South, East, or West.")
+    time.sleep(e)
+    print("Pick up each item by typing: Take")
+    time.sleep(e)
+    print("You may exit the game at any time by typing: Quit")
+    time.sleep(c)
+    print()
+    print("Now Go EXPLORE!! :)")
+    print()
+    print()
+
+# Begin Game
+time.sleep(b)
+intro()
+show_instructions()
+time.sleep(c)
+startgame = input("Are you ready? Type Start: ")
+print()
+print()
+time.sleep(d)
+
+# explore first room
+print()
+if startgame == 'Start':
+    time.sleep(c)
+    print("Yes!")
+    print()
+    time.sleep(e)
+    print("Let's go!")
+    print()
+    time.sleep(c)
+else:
+    exit("Come back later.")
+
+# Tinny Pyramid Room Map
+rooms = {
+    'Tinny Entrance': {'North': 'Blue Room'},
+
+    'Blue Room': {'East': 'Sanskrit Room',
+                  'West': 'Dead Room',
+                  'South': 'Tinny Entrance',
+                  'item': 'Sage'},
+
+    'Sanskrit Room': {'West': 'Blue Room',
+                      'North': 'Green Room',
+                      'item': 'Salt'},
+
+    'Dead Room': {'East': 'Blue Room',
+                  'North': 'Serendipity Room',
+                  'item': 'Ouija Board'},
+
+    'Green Room': {'South': 'Sanskrit Room',
+                   'West': 'Infinite Room',
+                   'item': 'Protection Spells'},
+
+    'Serendipity Room': {'South': 'Dead Room',
+                         'East': 'Infinite Room',
+                         'item': 'Clear Quartz'},
+
+    'Infinite Room': {'East': 'Green Room',
+                      'West': 'Serendipity Room',
+                      'North': 'Evil Room',
+                      'item': 'Cedar Resin'},
+
+    'Evil Room': {'South': 'Infinite Room'},
+}
+
+def main():
+    # Starting room is Tinny Entrance
+    current_room = "Tinny Entrance"
+    user_input = "Start"
+    user_inventory = []
+    while True:
+        print("You are currently in:", current_room)
+        # Print out the player's current inventory
+        print("Your satchel contains", user_inventory)
+        # If there's an item in this room
+        if 'item' in rooms[current_room]:
+            print("Look! An item has appeared to help you defeat the evil spirit!", rooms[current_room]['item'])
+
+        user_input = input("What would you like to do? ").strip()
+        print()
+        time.sleep(d)
+        if user_input == "Quit":
+            print("Sorry to see you go! Come back again :)")
+            exit()
+        elif user_input == "Take":
+            print("You picked up the", rooms[current_room]['item'])
+            user_inventory.append(rooms[current_room]['item'])
+            del rooms[current_room]["item"]
+
+        elif user_input in ["North", "South", "East", "West"]:
+            if user_input in rooms[current_room]:
+                current_room = rooms[current_room][user_input]
+            else:
+                print("Oh no, you hit a wall! Choose again. ")
+        else:
+            print("invalid entry")
+
+        if current_room == 'Evil Room':
+            print("You are now in the Evil Room.")
+            print()
+            time.sleep(c)
+            print("...a dark mass rises from the far corner of the dingy room")
+            print()
+            time.sleep(c)
+            print("Oh no! You see Thermopalus taking shape in front of you!")
+            print()
+            time.sleep(c)
+            if len(user_inventory) < 6:
+                print()
+                print("Welp, there you have it. Your soul has been sucked out of your body. Come back and try again.")
+                print()
+            elif len(user_inventory) == 6:
+                print()
+                print("*********************************************************************")
+                print("Thermopalus couldn't stand up to your power and protection! You have defeated the evil inside of Tinny Pyramid!!!")
+                print("*********************************************************************")
+                print()
+            break
+
+        print()
+
+
+main()
